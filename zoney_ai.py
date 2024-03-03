@@ -1,6 +1,7 @@
 import argparse
 from transcriber import transcribe_audio_file
-from summarizer import summarize_text  # Import the summarize function from your new module
+from summarizer import summarize_text
+from youtube_transcriber import download_and_transcribe_youtube  # Import the summarize function from your new module
 
 def transcribe_audio(args):
     transcription = transcribe_audio_file(args.audio_file)
@@ -22,6 +23,10 @@ def main():
     summarize_parser = subparsers.add_parser('summarize', help='Summarize text from a .txt file')
     summarize_parser.add_argument('text_file', type=str, help='Path to the .txt file to summarize')
     summarize_parser.set_defaults(func=summarize_audio)
+    
+    yt_transcriber_parser = subparsers.add_parser('yt_transcriber', help='Transcribe a YouTube video')
+    yt_transcriber_parser.add_argument('url', type=str, help='URL of the YouTube video to transcribe')
+    yt_transcriber_parser.set_defaults(func=download_and_transcribe_youtube)
 
     args = parser.parse_args()
     if hasattr(args, 'func'):

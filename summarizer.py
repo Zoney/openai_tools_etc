@@ -9,7 +9,7 @@ def estimate_token_count(text):
     # Placeholder implementation
     return len(text.split())
 
-def split_into_parts(text, token_limit=2048):
+def split_into_parts(text, token_limit=100000):
     words = text.split()
     parts = []
     current_part = []
@@ -35,10 +35,12 @@ def summarize_with_gpt4(text):
         "role": "system",
         "content": "Du er en tekst-oppsummerer. Du oppsummerer gjerne tekst som gir gitt deg, både lang og kort tekst.",
           },
-          {
+           {
         "role": "user",
-        "content": "Oppsummer følgende tekst, formater det som et møtereferat, og skriv aksjonspunkter: \n" + text,
-          }
+        "content": """Under følger et opptak (automatisk transkribrert, noe feil og rare tolkninger kan nok forekomme).\n
+"""  + text,
+        }
+       
     ],
     )
     print(response)
